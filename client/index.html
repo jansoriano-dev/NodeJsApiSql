@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nodejs|Api|Sql</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <form id="form-wrapper">
+        <div class="flex-wrapper">
+          <div style="flex: 5;">
+            <input
+              class="form-control"
+              placeholder="Item name"
+              type="text"
+              id="addItem"
+            />
+          </div>
+          <div style="flex: 1;">
+            <button id="btnAdd" class="btn btn-outline-info">
+              Add Item
+            </button>
+          </div>
+        </div>
+        <br />
+        <div class="flex-wrapper">
+          <div style="flex: 5;">
+            <input
+              class="form-control"
+              placeholder="Search by name"
+              id="searchItem"
+            />
+          </div>
+          <div style="flex: 1;">
+            <button id="btnSearch" class="btn btn-outline-secondary">
+              &nbsp; Search &nbsp;
+            </button>
+          </div>
+        </div>
+        <div>
+          <br />
+          <table class="table table-bordered" id="table">
+            <thead class="text-info">
+              <th>
+                Item Code
+              </th>
+              <th>
+                Item Name
+              </th>
+              <th>
+                Date Added
+              </th>
+              <th>
+                Update
+              </th>
+              <th>
+                Delete
+              </th>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </form>
+    </main>
+    <script src="index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
