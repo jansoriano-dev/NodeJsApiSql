@@ -20,7 +20,14 @@ app.get("/getAll", (request, response) => {
     .catch((err) => console.log(err));
 });
 //create
-app.post("/insert", (request, response) => {});
+app.post("/insert", (request, response) => {
+  const { name, qty, amount } = request.body;
+  const db = dbServices.getDbServicesInstance();
+  const result = db.insetNewItem(name, qty, amount);
+  result
+    .then((data) => response.json({ data: data }))
+    .catch((err) => console.log(err));
+});
 
 //update
 

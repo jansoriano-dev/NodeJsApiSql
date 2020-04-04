@@ -36,6 +36,7 @@ main {
 
 .flex-wrapper {
   display: flex;
+  margin: 5px;
 }
 
 .task-wrapper {
