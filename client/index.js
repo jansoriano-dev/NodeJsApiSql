@@ -4,6 +4,58 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((data) => loadHTMLTable(data["data"]));
 });
 
+document.querySelector("tbody").addEventListener("click", function (event) {
+  if (event.target.className === "btn btn-sm btn-outline-secondary btnDelete") {
+    deleteRowId(event.target.dataset.id);
+  }
+  if (event.target.className === "btn btn-sm btn-outline-info btnUpdate") {
+    handleRowId(event.target.dataset.id);
+  }
+});
+
+function deleteRowId(id) {
+  fetch("http://localhost:5000/delete/" + id, {
+    method: "DELETE",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        location.reload();
+      }
+    });
+}
+
+function handleRowId(id) {
+  const updateSection = document.querySelector("#updateRow");
+  updateSection.hidden = false;
+  document.querySelector("#updateItemRow").dataset.id = id;
+}
+const btnUpdate = document.querySelector("#updateItemRow");
+
+btnUpdate.onclick = function () {
+  const name = document.querySelector("#updateItemName");
+  const qty = document.querySelector("#updateItemqty");
+  const amount = document.querySelector("#updateItemAmt");
+  fetch("http://localhost:5000/update", {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      id: name.dataset.id,
+      name: name.value,
+      qty: qty.value,
+      amount: amount.value,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        location.reload();
+      }
+    });
+};
+
 const btnAdd = document.querySelector("#btnAdd");
 
 btnAdd.onclick = function () {
@@ -36,14 +88,17 @@ function insertRowIntoTable(data) {
 
   let tableHtml = "<tr>";
 
-  data.forEach(function ({ id, name, qty, amount }) {
-    tableHtml += `<td>${id}</td>`;
-    tableHtml += `<td>${name}</td>`;
-    tableHtml += `<td>${qty}</td>`;
-    tableHtml += `<td>${amount}</td>`;
-    tableHtml += `<td><button class="btn btn-sm btn-outline-info btnUpdate" data-id=${id}>Update</button></td>`;
-    tableHtml += `<td><button class="btn btn-sm btn-outline-secondary btnDelete" data-id=${id}>Delete</button></td>`;
-  });
+  for (var key in data) {
+    if (data.hasOwnProperty(key)) {
+      if (key === "dateAdded") {
+        data[key] = new Date(data[key]).toLocaleString();
+      }
+      tableHtml += `<td>${data[key]}</td>`;
+    }
+  }
+  tableHtml += `<td><button class="btn btn-sm btn-outline-info btnUpdate" data-id=${data.id}>Update</button></td>`;
+  tableHtml += `<td><button class="btn btn-sm btn-outline-secondary btnDelete" data-id=${data.id}>Delete</button></td>`;
+
   tableHtml += "</tr>";
 
   if (checkItemTable) {

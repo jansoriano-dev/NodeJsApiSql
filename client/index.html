@@ -15,6 +15,39 @@
   <body>
     <main>
       <form id="form-wrapper">
+        <section hidden id="updateRow">
+          <div class="flex-wrapper">
+            <div style="flex: 2.5;">
+              <input
+                class="form-control"
+                type="text"
+                id="updateItemName"
+                placeholder="item name"
+              />
+            </div>
+            <div style="flex: 1;">
+              <input
+                class="form-control"
+                type="text"
+                id="updateItemQty"
+                placeholder="qty"
+              />
+            </div>
+            <div style="flex: 1.5;">
+              <input
+                class="form-control"
+                type="text"
+                id="updateItemAmt"
+                placeholder="Amount"
+              />
+            </div>
+            <div style="flex: 1;">
+              <button id="updateItemRow" class="btn btn-outline-info">
+                Save Item
+              </button>
+            </div>
+          </div>
+        </section>
         <div class="flex-wrapper">
           <div style="flex: 2.5;">
             <input
@@ -63,16 +96,16 @@
         </div>
         <div>
           <br />
-          <table class="table table-bordered" id="table">
+          <table class="table table-striped" id="table">
             <thead class="text-info">
               <th>
-                Item Code
+                Code
               </th>
               <th>
                 Item Name
               </th>
               <th>
-                Quantity
+                QTY
               </th>
               <th>
                 Amount
@@ -89,9 +122,9 @@
         </div>
       </form>
     </main>
-    <script src="index.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>

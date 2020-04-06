@@ -40,22 +40,63 @@ class DbServices {
 
   async insetNewItem(name, qty, amount) {
     try {
+      const dateAdded = new Date();
       const insertId = await new Promise((resolve, reject) => {
-        const query = "INSERT INTO items (name,qty,amount) VALUES (?, ?, ?)";
-        connection.query(query, [name, qty, amount], (err, result) => {
-          if (err) reject(new Error(err.message));
-          resolve(result.insertId);
-        });
+        const query =
+          "INSERT INTO items (name,qty,amount,date_added) VALUES (?, ?, ?, ?)";
+        connection.query(
+          query,
+          [name, qty, amount, dateAdded],
+          (err, result) => {
+            if (err) reject(new Error(err.message));
+            resolve(result.insertId);
+          }
+        );
       });
       return {
         id: insertId,
         name: name,
         qty: qty,
         amount: amount,
+        dateAdded: dateAdded,
       };
       //return response;
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async deleteRowId(id) {
+    try {
+      id = parseInt(id, 10);
+      const response = await new Promise((resolve, reject) => {
+        const query = "DELETE FROM items WHERE id = ?";
+        connection.query(query, [id], (err, result) => {
+          if (err) reject(new Error(err.message));
+          resolve(result.affectedRows);
+        });
+      });
+      return response === 1 ? true : false;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+  async updateRow(id, name, qty, amount) {
+    try {
+      id = parseInt(id, 10);
+      const response = await new Promise((resolve, reject) => {
+        const query =
+          "UPDATE items SET name = ?, qty = ?, amount = ? WHERE id = ?";
+        connection.query(query, [name, qty, amount, id], (err, result) => {
+          if (err) reject(new Error(err.message));
+          resolve(result.affectedRows);
+        });
+      });
+      return response === 1 ? true : false;
+    } catch (error) {
+      console.log(error);
+      return false;
     }
   }
 }

@@ -7,6 +7,7 @@ dotenv.config();
 const dbServices = require("./dbServices");
 
 app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -30,7 +31,27 @@ app.post("/insert", (request, response) => {
 });
 
 //update
+app.patch("/update", (request, response) => {
+  const { id, name, qty, amount } = request.body;
+  const db = dbServices.getDbServicesInstance();
+
+  const result = db.updateRow(id, name, qty, amount);
+
+  result
+    .then((data) => response.json({ success: data }))
+    .catch((err) => console.log(err));
+});
 
 //delete
+app.delete("/delete/:id", (request, response) => {
+  const { id } = request.params;
+  const db = dbServices.getDbServicesInstance();
+
+  const result = db.deleteRowId(id);
+
+  result
+    .then((data) => response.json({ success: data }))
+    .catch((err) => console.log(err));
+});
 
 app.listen(process.env.PORT, () => console.log("app is running"));
